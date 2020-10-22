@@ -1,0 +1,5 @@
+CONFIG_FILENAME = 'status.ini'
+CONFIG_SECTION = 'MAIN'
+CONFIG_CURR_WIFI = 'curr_wifi'
+CONFIG_CURR_PW = 'curr_pw'
+CONFIG_SERVER_STATUS = 'server_status'
