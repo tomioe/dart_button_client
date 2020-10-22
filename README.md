@@ -11,6 +11,8 @@ and https://github.com/tomioe/raspiApWlanScripts/)
 
 # systemd
 
+Config from: https://www.dexterindustries.com/howto/run-a-program-on-your-raspberry-pi-at-startup/#systemd
+
 Place files in "config" in `/lib/systemd/system/`.
 
 Make sure to `chmod 644 *.service` all service files.
