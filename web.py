@@ -18,6 +18,7 @@ app.secret_key = b'd02c4c4cde7ae76252540d116a40f23a' # hello github crawler!
 '''
     TODO:
         * Generic route for wifi / server
+        * Merge into single page
 '''
 
 

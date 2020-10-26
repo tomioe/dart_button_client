@@ -90,8 +90,11 @@ if __name__ == '__main__':
             * Verify connection check
             * Generic connection check
             * Generic properties handling
-            * Verify "switch_to_ap()" path
+            * Verify "switch_to_ap()" path in main loop
             * button.py spawn
+            * Script calling
+            * wpa-supplicant updating
+            * Connection of web.py when switching between AP and client
     '''
 
     # while(True):
