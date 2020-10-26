@@ -29,4 +29,5 @@ if __name__ == '__main__':
     	if len(x)>0:
 		else:
 			print("button.py couldn't read config file")
+	# https://gpiozero.readthedocs.io/en/stable/recipes.html
 	button.when_pressed = send_server_command
