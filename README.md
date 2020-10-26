@@ -2,8 +2,12 @@
 
 1. Install Raspbian Stretch Lite
 
+1. (Optional) Setup pipenv
+
 1. Copy the AP/Client scripts from forked repo (see https://raspberrypi.stackexchange.com/questions/93311/switch-between-wifi-client-and-access-point-without-reboot
-and https://github.com/tomioe/raspiApWlanScripts/)
+and https://github.com/tomioe/raspiApWlanScripts/).
+
+1. Run the AP/Client configure script. *Remember to use dos2unix and chmod!*
 
 1. Copy the python scripts over
 

@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import configparser
 import time 
 import subprocess
@@ -7,111 +8,108 @@ import common_vars as cvar
 
 
 def switch_to_ap():
-
-    '''
-        manual mode didn't work, see below...
-    '''
-
-    # os.system('switchToAP.sh') 
+    # os.system('sudo ./raspiApWlanScripts/switchToAP.sh') 
     return
 
 def switch_to_client(ssid, pw):
-    # print(f'connecting to wifi with "{ssid}", "{pw}"')
-    # # stop DNSMASQ and HOSTAPD
-    # os.system('sudo systemctl stop dnsmasq')
-    # os.system('sudo systemctl stop hostapd')
-    # os.system('sudo systemctl disable hostapd')
-    
-    # os.system('sudo ifdown wlan0')
-    # new_wpa_supplicant = [
-    #     'country=GB',
-    #     'ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev',
-    #     'update_config=1',
-    #     'network={',
-    #         f'\tssid="{ssid}"',
-    #         f'\tpsk="{copenhell2019}"',
-    #     '}'
-    # ]
+     # print(f'connecting to wifi with "{ssid}", "{pw}"')
+    new_wpa_supplicant = [
+        'country=GB',
+        'ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev',
+        'update_config=1',
+        '\n',
+        'network={',
+            f'\tssid="{ssid}"',
+            f'\tpsk="{pw}"',
+        '}'
+    ]
+    for new_line in new_wpa_supplicant:
+        print(new_line)
     # wpa_supp_path = '/etc/wpa_supplicant/wpa_supplicant.conf'
-    # with open(wpa_supp_path, w) as wpa_file:
-    #     for new_line in new_wpa_supplicant:
+    # with open(wpa_supp_path, 'w') as wpa_file:
     #         wpa_file.write(new_line+'\n')
-    # os.system('sudo ifup wlan0')
-    # os.system('sudo service networking reload')
 
-    '''
-        turns out dongle doesn't support AP mode.
-        use forked github scripts.
-    '''
-
-    # os.system('./setup_wlan_and_AP_modes.sh -s <station mode SSID> -p <station mode password> -a <AP mode SSID> -r <AP mode password>')
-    # time.sleep(15) # tune this based on setup time
-    # os.system('switchToWlan.sh')
-
+    # os.system('sudo ./raspiApWlanScripts/switchToAP.sh') 
     return 
 
-def initiate_config(cparser):
-    x = cparser.read(cvar.CONFIG_FILENAME)
-    if len(x) == 0:
-        cparser[cvar.CONFIG_SECTION] = {
-            cvar.CONFIG_CURR_SSID: '',
-            cvar.CONFIG_CURR_PW: '',
-            cvar.CONFIG_SERVER_STATUS: 'no_conn'
-        }
-        cvar.write_config(config)
-        print("wrote new config file")
+def check_connection(check_address):´
+    # 'ping' on *NIX has different returncodes depending on the address
+    cmd = ['ping', '-c 1', check_address]
+    ping = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+    fail_counter = 0
 
+    # see here for simpler way: https://stackoverflow.com/a/16808776
+    while ping.poll() is None:
+        # wait for ping command to finish
+        time.sleep(1)
+
+
+    print(f'return is {ping.returncode}')
+    if ping.returncode == 0
+        fail_counter += 1
+        if fail_counter == 5
+            print("Failed to establish wifi connection")
+            return False
+    else
+        # we got a connection! update the status and connect to the server
+        print(f'we got connection to "{check_address}"')
+        return True
+    return False
 
 if __name__ == '__main__':
-    ### TODO: Make this more loop friendly
-
+    print('Controller started, reading configuration.')
     # switch_to_ap()
+
     config = configparser.RawConfigParser()
-    #initiate_config(config)
-    x = cparser.read(cvar.CONFIG_FILENAME)
+    x = config.read(cvar.CONFIG_FILENAME)
     if len(x) == 0:
-        cparser[cvar.CONFIG_SECTION] = {
+        config[cvar.CONFIG_SECTION] = {
             cvar.CONFIG_CURR_SSID: '',
             cvar.CONFIG_CURR_PW: '',
             cvar.CONFIG_SERVER_STATUS: 'no_conn'
         }
         cvar.write_config(config)
-        print("wrote new config file")
+        print("Configuration no found, writing new.")
 
-    # connect to WiFi if we have SSID/PW
+    # connect to WiFi 
     while(True):
         config.read(cvar.CONFIG_FILENAME)
         new_wifi = config[cvar.CONFIG_SECTION][cvar.CONFIG_CURR_SSID]
         new_pw = config[cvar.CONFIG_SECTION][cvar.CONFIG_CURR_PW]
         if new_wifi != '' and new_pw != '':
-            print("Got new WiFi Creds, connecting!")
-            # config[status] = "no_resp"
+            print("Got initial WiFi Creds, connecting!")
+            switch_to_client(new_wifi, new_pw)
+            config[cvar.CONFIG_SECTION][cvar.CONFIG_SERVER_STATUS] = 'no_resp'
+            cvar.write_config(config)
             break
         # print("no new pw, sleeping")
         time.sleep(2)
-    
-    config[cvar.CONFIG_SECTION][cvar.CONFIG_SERVER_STATUS] = 'no_resp'
-    cvar.write_config(config)
-    # connect to wifi network
 
-'''
-    while(True):
-        cmd = ['ping', '-c 1', 'www.google.com']
-        ping = subprocess.Popen(cmd, stdout=subprocess.PIPE)
-        fail_counter = 0
-        while ping.poll() is None:
-            # wait for ping command to finish
-            time.sleep(1)
+    '''
+        TODO:
+            * Verify connection check
+            * Generic connection check
+            * Generic properties handling
+            * Verify "switch_to_ap()" path
+            * button.py spawn
+    '''
+
+    # while(True):
+    #     if check_wifi_connection():
+    #         if check_server_connection():
+    #             config[cvar.CONFIG_SECTION][cvar.CONFIG_SERVER_STATUS] = 'ok'
+    #             cvar.write_config(config)
+    #             subprocess.run(["python3", "-u", "button.py"])
+    #         else:
+    #             config[cvar.CONFIG_SECTION][cvar.CONFIG_SERVER_STATUS] = 'no_resp'
+    #             switch_to_ap()
+    #     else:
+    #         config[cvar.CONFIG_SECTION][cvar.CONFIG_SERVER_STATUS] = 'no_conn'
+    #         switch_to_ap()
+    #     cvar.write_config(config)
+    #     sleep(5)
 
 
-        print(f'return is {ping.returncode}')
-        if ping.returncode == 0
-            fail_counter++
-            if fail_counter == 5
-                print("failed to establish wifi connection")
-                config[status] = "no_conn"
-                switch_to_ap()
-        else
-            # we got a connection! update the status and connect to the server
-            break
-'''
+       
+
+

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dart Button - Server Config</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Server Configuration</h1>
+        <br>
+        <br>
+        <form method="post">
+            <label for="server">Server Address</label>
+            <input name="server" id="server" value="{{ server_properties['config_server_address'] }}">
+            <br />
+            <label for="server">Server Port</label>
+            <input name="port" id="server" value="{{ server_properties['config_server_port'] }}">
+            <br />
+            <input type="submit" value="Save">
+        </form>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class=flashes>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    </div>
+</body>
+
+</html>

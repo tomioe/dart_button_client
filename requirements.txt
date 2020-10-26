@@ -1,3 +1,9 @@
-flask
-ConfigParser
-gpiozero
+click==7.1.2
+colorzero==1.1
+configparser==5.0.1
+flask==1.1.2
+gpiozero==1.5.1
+itsdangerous==1.1.0
+jinja2==2.11.2
+markupsafe==1.1.1
+werkzeug==1.0.1

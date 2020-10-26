@@ -1,32 +1,35 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Dart Button - WiFi Config</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
-  <body>
-    <div class="container">
-      <h1>WiFi Configuration</h1>
-      <br>
-      <br>
-      <form method="post">
-        <label for="ssid">SSID</label>
-        <input name="ssid" id="ssid" value="{{ wifi_properties['config_ssid'] }}">
-        <br />
-        <label for="pw">PW</label>
-        <input name="pw" id="pw" value="{{ wifi_properties['config_pw'] }}">
-        <br />
-        <input type="submit" value="Save">
-      </form>
-      {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul class=flashes>
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
-    </div>
-  </body>
+
+<head>
+  <title>Dart Button - WiFi Config</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <div class="container">
+    <h1>WiFi Configuration</h1>
+    <br>
+    <br>
+    <form method="post">
+      <label for="ssid">SSID</label>
+      <input name="ssid" id="ssid" value="{{ wifi_properties['config_ssid'] }}">
+      <br />
+      <label for="pw">PW</label>
+      <input name="pw" id="pw" value="{{ wifi_properties['config_pw'] }}">
+      <br />
+      <input type="submit" value="Save">
+    </form>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class=flashes>
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+  </div>
+</body>
+
 </html>
