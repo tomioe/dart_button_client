@@ -9,4 +9,7 @@ CONFIG_SERV_PORT='server_port'
 def write_config(cparser):
     with open(CONFIG_FILENAME, 'w+') as configfile:
         cparser.write(configfile)
-    
+
+def clear_parameter(cparser, paramter):
+    cparser[CONFIG_SECTION][paramter] = ''
+    write_config(cparser)
