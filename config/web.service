@@ -4,7 +4,7 @@ After=multi-user.target
 
 [Service]
 Type=idle
-ExecStart=/usr/bin/python3 /home/pi/new_pi/web.py > /home/pi/new_pi/web.log 2>&1
+ExecStart=/usr/bin/pipenv run python3 /home/pi/new_pi/web.py > /home/pi/new_pi/web.log 2>&1
 
 [Install]
 WantedBy=multi-user.target

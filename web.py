@@ -1,13 +1,13 @@
 #!/usr/bin/python
-import configparser
-config = configparser.RawConfigParser()
-
-import common_vars as cvar
-
 # import the Flask class from the flask module
 from flask import (
      Flask, render_template, request, url_for, flash, redirect
 )
+
+import configparser
+config = configparser.RawConfigParser()
+
+import common_vars as cvar
 
 ## main doc: https://flask.palletsprojects.com/en/1.1.x/tutorial/blog/
 
@@ -87,7 +87,11 @@ def default():
     
     return render_template('index.html', my_vars=my_vars)  # render a template
 
-# start the server with the 'run()' method
-if __name__ == '__main__':
+def main():
     app.run(debug=True,host= '0.0.0.0')
     app.add_url_rule('/', endpoint='index')
+
+# start the server with the 'run()' method
+if __name__ == '__main__':
+    print("Web Server setting up")
+    main()

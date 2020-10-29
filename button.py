@@ -8,15 +8,12 @@ import common_vars as cvar
 
 global button
 if platform.system().lower() != "windows":
-	from gpiozero import Button
+	from gpiozero import Button, PWMLED
 	# 'button' is our LARGE button, on GPIO15 (i.e. pin 10)
 	button = Button(15)
+	# 'button_led' is our LARGE button's built-in, on GPIO2 (i.e. pin 3)
+	button_led = PWMLED(2)
 
-
-'''
-	TODO:
-		* Read IP addr/port from config file
-'''
 
 global server_addr, server_port, press_count
 
@@ -49,6 +46,14 @@ if __name__ == '__main__':
 	# https://gpiozero.readthedocs.io/en/stable/recipes.html
 	if platform.system().lower() != "windows":
 		button.when_pressed = send_server_command
+
 	while(True):
+		if platform.system().lower() != "windows":
+			for b in range(100):
+				button_led.value = b / 100
+				sleep(0.1)
+			for b in range(100,1):
+				button_led.value = b / 100
+				sleep(0.1)
 		#print("button loop")
-		sleep(10)
+		sleep(3)

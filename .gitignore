@@ -2,3 +2,5 @@ various/
 .vscode/
 .idea/
 __pycache__/
+
+test.py

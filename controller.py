@@ -1,12 +1,12 @@
 #!/usr/bin/python
-import configparser
-import time 
-import subprocess
+from multiprocessing import Process
 import os
+import sys
+import time 
 import platform
+import configparser
 
 import common_vars as cvar 
-
 
 def switch_to_ap():
     if platform.system().lower() != "windows":
@@ -62,9 +62,12 @@ def wait_for_config(cparser):
         time.sleep(2)
 
 if __name__ == '__main__':
-    print('Controller started, reading configuration.')
+    print('Controller started.')
+
+    print('Switching to AP.')
     switch_to_ap()
 
+    print('Reading configuration.')
     ctr_config = configparser.RawConfigParser()
     x = ctr_config.read(cvar.CONFIG_FILENAME)
     if len(x) == 0:
