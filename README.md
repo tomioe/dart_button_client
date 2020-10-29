@@ -4,6 +4,8 @@
 
 1. (Optional) Setup pipenv
 
+1. Run `sudo apt install python3-gpiozero`
+
 1. Copy the AP/Client scripts from forked repo (see https://raspberrypi.stackexchange.com/questions/93311/switch-between-wifi-client-and-access-point-without-reboot
 and https://github.com/tomioe/raspiApWlanScripts/).
 

@@ -9,8 +9,8 @@ import common_vars as cvar
 global button
 if platform.system().lower() != "windows":
 	from gpiozero import Button
-	# 'button' is our LARGE button, on GPIO2 (i.e. pin 3)
-	button = Button(2)
+	# 'button' is our LARGE button, on GPIO15 (i.e. pin 10)
+	button = Button(15)
 
 
 '''
@@ -18,22 +18,28 @@ if platform.system().lower() != "windows":
 		* Read IP addr/port from config file
 '''
 
-global server_addr, server_port
+global server_addr, server_port, press_count
 
 def send_server_command():
-	print(f'\tSending code to server.')
-	print(f'{server_addr} : {server_port}')
-	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	s.connect((server_addr, int(server_port)))
-	s.send('dstp\n')
-	data = s.recv(1024)
-	s.close()
+	global press_count
+	press_count += 1
+	print(f'Sending code to server.')
+	print(f'\t{server_addr} : {server_port}')
+	print(f'\tpress count: {press_count}')
+	
+	#s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	#s.connect((server_addr, int(server_port)))
+	#s.send('dstp\n')
+	#data = s.recv(1024)
+	#s.close()
 	
 
 if __name__ == '__main__':
 	print("Running Button.py")
 	config = configparser.RawConfigParser()
 	x = config.read(cvar.CONFIG_FILENAME)
+	global press_count
+	press_count = 0
 	if len(x)>0:
 		print("button.py read the config")
 		server_addr = config[cvar.CONFIG_SECTION][cvar.CONFIG_SERV_ADDR]
@@ -44,5 +50,5 @@ if __name__ == '__main__':
 	if platform.system().lower() != "windows":
 		button.when_pressed = send_server_command
 	while(True):
-		print("button loop")
+		#print("button loop")
 		sleep(10)

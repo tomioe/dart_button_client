@@ -41,7 +41,7 @@ def switch_to_client(ssid, pw):
 
 def check_connection(check_address):
     try:
-        output = subprocess.check_output("ping -{} 1 {}".format('n' if platform.system().lower()=="windows" else 'c', check_address), shell=True)
+        output = subprocess.check_output("ping -{} 3 {}".format('n' if platform.system().lower()=="windows" else 'c', check_address), shell=True)
     except:
         return False
     return True
@@ -91,15 +91,9 @@ if __name__ == '__main__':
         switch_to_client(new_wifi, new_pw)
 
     '''
-        TODO:
-            * Verify connection check       ok
-            * Generic connection check      ok
-            * Verify "switch_to_ap()" path in main loop     ok
-            * Script calling        ok
-            * button.py spawn       ok
-            * wpa-supplicant updating   ok
-            * Connection of web.py when switching between AP and client     ok (single page)
-            * Generic properties handling   
+    TODO:
+        * Generic properties handling   
+        * Test on phone
     '''
 
     main_loop_wait = False
