@@ -11,7 +11,7 @@ import common_vars as cvar
 
 def switch_to_ap():
     if platform.system().lower() != "windows":
-        os.system('sudo ./raspiApWlanScripts/switchToAP.sh') 
+        os.system('sudo /app/raspiApWlanScripts/switchToAP.sh') 
     return
 
 def switch_to_client(ssid, pw):
@@ -33,7 +33,7 @@ def switch_to_client(ssid, pw):
             for new_line in new_wpa_supplicant:
                 wpa_file.write(new_line+'\n')
                 print(f'writing:\t{new_line}')
-        os.system('sudo ./raspiApWlanScripts/switchToWlan.sh') 
+        os.system('sudo /app/raspiApWlanScripts/switchToWlan.sh') 
         time.sleep(10)
     else:
         for new_line in new_wpa_supplicant:

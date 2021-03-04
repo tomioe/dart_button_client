@@ -4,7 +4,7 @@ After=multi-user.target
 
 [Service]
 Type=idle
-ExecStart=/usr/bin/python3 /home/pi/new_pi/controller.py > /home/pi/new_pi/controller.log 2>&1
+ExecStart=/usr/bin/python3 /app/controller.py > /app/controller.log 2>&1
 
 [Install]
 WantedBy=multi-user.target

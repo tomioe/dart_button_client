@@ -15,11 +15,13 @@ if platform.system().lower() != "windows":
 	button_led = PWMLED(2)
 
 
-global server_addr, server_port, press_count
+global server_addr
+global server_port
+global press_count
 
 def send_server_command():
 	global press_count
-	press_count += 1
+	press_count = press_count + 1
 	print(f'Sending code to server.')
 	print(f'\t{server_addr} : {server_port}')
 	print(f'\tpress count: {press_count}')
