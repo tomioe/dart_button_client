@@ -1,5 +1,6 @@
 #!/usr/bin/python
 from multiprocessing import Process
+import subprocess
 import os
 import sys
 import time 
@@ -41,7 +42,7 @@ def switch_to_client(ssid, pw):
 
 def check_connection(check_address):
     try:
-        output = subprocess.check_output("ping -{} 3 {}".format('n' if platform.system().lower()=="windows" else 'c', check_address), shell=True)
+        subprocess.check_output("ping -{} 3 {}".format('n' if platform.system().lower()=="windows" else 'c', check_address), shell=True)
     except:
         return False
     return True
@@ -120,7 +121,7 @@ if __name__ == '__main__':
         print(f'trying for gateway {gateway_ip}')
         if check_connection(gateway_ip):
             print('\twe got gateway connection')
-            if check_connection('192.168.1.11'):
+            if check_connection('192.168.1.30'):
                 print('\twe got server connection')
                 ctr_config[cvar.CONFIG_SECTION][cvar.CONFIG_SERVER_STATUS] = 'ok'
                 cvar.write_config(ctr_config)
@@ -146,7 +147,3 @@ if __name__ == '__main__':
             switch_to_ap()
 
         time.sleep(5)
-
-       
-
-

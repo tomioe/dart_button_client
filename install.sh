@@ -1,0 +1,1 @@
+cp ./config/*.* /lib/systemd/system/
