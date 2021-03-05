@@ -15,9 +15,9 @@ echo "Installing python req's"
 rm -rf status.ini
 pip3 install -r requirements.txt
 
-echo "Install AP & Wlan scripts"
+echo "Installing AP & Wlan scripts"
 sudo chmod 777 ./ApWlanScripts/*.sh
 # run script that allows for easy switching between AP and WLAN
 # since we set the WLAN through web interface, no need to set -s[sid] and -p[assword]
-./ApWlanScripts/_setup_wlan_and_AP_modes.sh -s "" -p "" -a Dartbutton -r dartbutton
+./ApWlanScripts/_setup_wlan_and_AP_modes.sh -s a -p a -a Dartbutton -r dartbutton
 echo "Run 'sudo reboot now'"
