@@ -6,13 +6,19 @@ from time import sleep
 
 import common_vars as cvar
 
+'''
+	TODO:
+	* Long press for config reset (clear cvar and just return)
+	* Enable the LED and start pulsing
+'''
+
 global button
-if platform.system().lower() != "windows":
-	from gpiozero import Button, PWMLED
-	# 'button' is our LARGE button, on GPIO15 (i.e. pin 10)
-	button = Button(15)
-	# 'button_led' is our LARGE button's built-in, on GPIO2 (i.e. pin 3)
-	button_led = PWMLED(2)
+#if platform.system().lower() != "windows":
+from gpiozero import Button, PWMLED
+# 'button' is our LARGE button, on GPIO15 (i.e. pin 10)
+button = Button(15)
+# 'button_led' is our LARGE button's built-in, on GPIO2 (i.e. pin 3)
+button_led = PWMLED(2)
 
 
 global server_addr
@@ -26,11 +32,13 @@ def send_server_command():
 	print(f'\t{server_addr} : {server_port}')
 	print(f'\tpress count: {press_count}')
 	
-	#s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	#s.connect((server_addr, int(server_port)))
-	#s.send('dstp\n')
-	#data = s.recv(1024)
-	#s.close()
+    # https://www.raspberrypi.org/forums/viewtopic.php?t=93450
+    # https://serverfault.com/questions/405647/how-to-see-incoming-ips-in-linux
+    
+	dartServerSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	dartServerSocket.sendto("dtsp\n", (server_addr, int(server_port)))
+	response = dartServerSocket.recv(1024)
+	
 	
 
 if __name__ == '__main__':
@@ -46,8 +54,8 @@ if __name__ == '__main__':
 	else:
 		print("button.py couldn't read config file")
 	# https://gpiozero.readthedocs.io/en/stable/recipes.html
-	if platform.system().lower() != "windows":
-		button.when_pressed = send_server_command
+	#if platform.system().lower() != "windows":
+	button.when_pressed = send_server_command
 
 	while(True):
 		if platform.system().lower() != "windows":

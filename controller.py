@@ -121,7 +121,7 @@ if __name__ == '__main__':
         print(f'trying for gateway {gateway_ip}')
         if check_connection(gateway_ip):
             print('\twe got gateway connection')
-            if check_connection('192.168.1.30'):
+            if check_connection('192.168.1.11'):
                 print('\twe got server connection')
                 ctr_config[cvar.CONFIG_SECTION][cvar.CONFIG_SERVER_STATUS] = 'ok'
                 cvar.write_config(ctr_config)

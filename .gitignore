@@ -4,3 +4,4 @@ various/
 __pycache__/
 
 test.py
+status.ini
