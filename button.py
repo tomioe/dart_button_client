@@ -35,8 +35,10 @@ def send_server_command():
     # https://www.raspberrypi.org/forums/viewtopic.php?t=93450
     # https://serverfault.com/questions/405647/how-to-see-incoming-ips-in-linux
     
+	dartServerAddress = (server_addr, int(server_port))
 	dartServerSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	dartServerSocket.sendto("dtsp\n", (server_addr, int(server_port)))
+	dartServerSocket.bind(dartServerAddress)
+	dartServerSocket.sendto("dtsp\n".encode('utf-8'),dartServerAddress)
 	response = dartServerSocket.recv(1024)
 	
 	
