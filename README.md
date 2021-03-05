@@ -2,7 +2,7 @@
 
 1. Install Raspbian Stretch Lite
 
-1. Copy the repo
+1. Copy the repo with `git clone [url] /app`
 
 1. Run `install.sh` 
 
