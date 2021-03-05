@@ -10,6 +10,9 @@ cp ./config/*.* /lib/systemd/system/
 touch web.log
 touch controller.log
 rm -rf status.ini
-sudo chmod 777 ./ApWlanScripts/*.sh
-./ApWlanScripts/_setup_wlan_and_AP_modes.sh -s "Gates of Hell" -p copenhell2019 -a Dartbutton -r dartbutton
 pip3 install -r requirements.txt
+
+sudo chmod 777 ./ApWlanScripts/*.sh
+# run script that allows for easy switching between AP and WLAN
+# since we set the WLAN through web interface, no need to set -s[sid] and -p[assword]
+./ApWlanScripts/_setup_wlan_and_AP_modes.sh -s "" -p "" -a Dartbutton -r dartbutton
