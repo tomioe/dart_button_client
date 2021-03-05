@@ -29,17 +29,17 @@ def send_server_command():
 	global press_count
 	press_count = press_count + 1
 	print(f'Sending code to server.')
-	print(f'\t{server_addr} : {server_port}')
+	print(f'\t{server_addr}: {server_port}')
 	print(f'\tpress count: {press_count}')
 	
-    # https://www.raspberrypi.org/forums/viewtopic.php?t=93450
-    # https://serverfault.com/questions/405647/how-to-see-incoming-ips-in-linux
+	# https://www.raspberrypi.org/forums/viewtopic.php?t=93450
+	# https://serverfault.com/questions/405647/how-to-see-incoming-ips-in-linux
     
 	dartServerAddress = (server_addr, int(server_port))
-	dartServerSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	dartServerSocket.bind(dartServerAddress)
-	dartServerSocket.sendto("dtsp\n".encode('utf-8'),dartServerAddress)
-	response = dartServerSocket.recv(1024)
+	with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+		s.connect(dartServerAddress)
+		s.sendall("dtsp\n".encode('utf-8'))
+		response = s.recv(1024)
 	
 	
 
