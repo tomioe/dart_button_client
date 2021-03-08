@@ -18,22 +18,22 @@ import common_vars as cvar
 global server_addr
 global server_port
 global press_count
-
-# def send_server_command():
-# 	global press_count
-# 	press_count = press_count + 1
-# 	print(f'Sending code to server.')
-# 	print(f'\t{server_addr}: {server_port}')
-# 	print(f'\tpress count: {press_count}')
-	
-# 	dartServerAddress = (server_addr, int(server_port))
-# 	with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-# 		s.connect(dartServerAddress)
-# 		s.sendall("dstp\n".encode('utf-8'))
-# 		response = s.recv(1024)
-	
-
 global button
+
+def send_server_command():
+	global press_count
+	press_count = press_count + 1
+	print(f'Sending code to server.')
+	print(f'\t{server_addr}: {server_port}')
+	print(f'\tpress count: {press_count}')
+	
+	dartServerAddress = (server_addr, int(server_port))
+	with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+		s.connect(dartServerAddress)
+		s.sendall("dstp\n".encode('utf-8'))
+		response = s.recv(1024)
+	
+
 if platform.system().lower() != "windows":
 	from gpiozero import Button, PWMLED
 
@@ -47,7 +47,6 @@ if __name__ == '__main__':
 	print("Running Button.py")
 	config = configparser.RawConfigParser()
 	x = config.read(cvar.CONFIG_FILENAME)
-	global press_count
 	press_count = 0
 	if len(x)>0:
 		print("button.py read the config")
