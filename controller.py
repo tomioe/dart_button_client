@@ -1,4 +1,4 @@
-# /etc/init.d/contoller.py
+#! /usr/bin/python3
 ### BEGIN INIT INFO
 # Provides:          contoller.py
 # Required-Start:    $remote_fs $syslog

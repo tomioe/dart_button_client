@@ -1,4 +1,4 @@
-# /etc/init.d/web.py
+#! /usr/bin/python3
 ### BEGIN INIT INFO
 # Provides:          web.py
 # Required-Start:    $remote_fs $syslog
