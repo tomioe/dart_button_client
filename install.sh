@@ -7,12 +7,8 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 echo "Copying files to init.d"
-cp /app/web.py /etc/init.d/
-cp /app/controller.py /etc/init.d/
-chmod +x /etc/init.d/web.py
-chmod +x /etc/init.d/controller.py
-update-rc.d web.py defaults
-update-rc.d controller.py defaults
+cp ./services/*.* /lib/systemd/system/
+
 
 echo "Creating empty config logs"
 touch web.log
