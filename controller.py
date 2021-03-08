@@ -1,4 +1,13 @@
-#!/usr/bin/python
+# /etc/init.d/contoller.py
+### BEGIN INIT INFO
+# Provides:          contoller.py
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start daemon at boot time
+# Description:       Enable service provided by daemon.
+### END INIT INFO
 from multiprocessing import Process
 import subprocess
 import os
@@ -126,7 +135,7 @@ if __name__ == '__main__':
                 ctr_config[cvar.CONFIG_SECTION][cvar.CONFIG_SERVER_STATUS] = 'ok'
                 cvar.write_config(ctr_config)
                 python_prog = "python" + ('3' if platform.system().lower() != "windows" else '')
-                subprocess.run([python_prog + " ./button.py"], shell=True)
+                subprocess.run([python_prog + " /app/button.py"], shell=True)
             else:
                 print('\tno server connection, clearing server config')
                 ctr_config[cvar.CONFIG_SECTION][cvar.CONFIG_SERVER_STATUS] = 'no_resp'

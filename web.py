@@ -1,4 +1,13 @@
-#!/usr/bin/python
+# /etc/init.d/web.py
+### BEGIN INIT INFO
+# Provides:          web.py
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start daemon at boot time
+# Description:       Enable service provided by daemon.
+### END INIT INFO
 # import the Flask class from the flask module
 from flask import (
      Flask, render_template, request, url_for, flash, redirect
