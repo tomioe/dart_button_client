@@ -8,7 +8,9 @@ fi
 
 echo "Copying files to init.d"
 cp ./services/*.* /lib/systemd/system/
-
+systemctl daemon-reload
+systemctl enable controller.service
+systemctl enable web.service
 
 echo "Creating empty config logs"
 touch web.log
