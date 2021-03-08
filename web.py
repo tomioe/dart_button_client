@@ -16,6 +16,11 @@ from flask import (
 import configparser
 config = configparser.RawConfigParser()
 
+import platform
+# when running on pi, we need to manually insert app dir into sys path
+if platform.system().lower() != "windows":
+    import sys
+    sys.path.append("/app/")
 import common_vars as cvar
 
 ## main doc: https://flask.palletsprojects.com/en/1.1.x/tutorial/blog/

@@ -11,8 +11,8 @@ cp /app/web.py /etc/init.d/
 cp /app/controller.py /etc/init.d/
 chmod +x /etc/init.d/web.py
 chmod +x /etc/init.d/controller.py
-update-rc.d /etc/init.d/web.py defaults
-update-rc.d /etc/init.d/controller.py defaults
+update-rc.d web.py defaults
+update-rc.d controller.py defaults
 
 echo "Creating empty config logs"
 touch web.log

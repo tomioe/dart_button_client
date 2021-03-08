@@ -16,6 +16,11 @@ import time
 import platform
 import configparser
 
+# when running on pi, we need to manually insert app dir into sys path
+if platform.system().lower() != "windows":
+    import sys
+    sys.path.append("/app/")
+
 import common_vars as cvar 
 
 def switch_to_ap():
